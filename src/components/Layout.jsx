@@ -1,22 +1,50 @@
 import { Link, Outlet } from "react-router-dom";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
-import AlertDialogDemo from "./Login";
+import { useEffect, useState } from "react";
 
 const Layout = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+      localStorage.getItem("recentProducts", JSON.stringify([]));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <header className="flex w-full flex-row items-end gap-12 border-b border-zinc-300 px-36 py-8 text-black">
+      <header className="flex w-full flex-row items-center gap-12 border-b border-zinc-300 px-36 py-8 text-black">
         <Link to="/" className="text-2xl font-bold">
           Exclusive
         </Link>
-        <div className="text-md flex w-full flex-row justify-between font-medium">
+        <div className="text-md flex w-full flex-row items-center justify-between font-medium">
           <Link to="/" className="underline">
             Home
           </Link>
-          <div className="flex flex-row gap-12">
-            <Login />
-            <CreateAccount />
+          <div className="flex flex-row items-center gap-12">
+            {user ? (
+              <>
+                <span>{user.fullName}</span>
+                <button
+                  onClick={handleLogout}
+                  className="rounded-md border border-black px-2 py-1 text-black hover:shadow-xl"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Login setUser={setUser} />
+                <CreateAccount setUser={setUser} />
+              </>
+            )}
           </div>
         </div>
       </header>

@@ -218,9 +218,9 @@ const Menu = () => {
           </div>
         </div>
       )}
-      {currentCategory === "eletronicos" && (
+      {currentCategory === "electronics" && (
         <div>
-          <div className="grid grid-cols-6 gap-10">
+          <div className="mt-14 grid grid-cols-6 gap-10">
             {eletronics.map((product) => (
               <ProductCard
                 key={product.id}
@@ -236,9 +236,9 @@ const Menu = () => {
           </div>
         </div>
       )}
-      {currentCategory === "joias" && (
+      {currentCategory === "jewelery" && (
         <div>
-          <div className="grid grid-cols-6 gap-10">
+          <div className="mt-14 grid grid-cols-6 gap-10">
             {jewelery.map((product) => (
               <ProductCard
                 key={product.id}
@@ -254,9 +254,9 @@ const Menu = () => {
           </div>
         </div>
       )}
-      {currentCategory === "masculino" && (
+      {currentCategory === "men's clothing" && (
         <div>
-          <div className="grid grid-cols-6 gap-10">
+          <div className="mt-14 grid grid-cols-6 gap-10">
             {mensClothing.map((product) => (
               <ProductCard
                 key={product.id}
@@ -272,9 +272,9 @@ const Menu = () => {
           </div>
         </div>
       )}
-      {currentCategory === "feminino" && (
+      {currentCategory === "women's clothing" && (
         <div>
-          <div className="grid grid-cols-6 gap-10">
+          <div className="mt-14 grid grid-cols-6 gap-10">
             {womensClothing.map((product) => (
               <ProductCard
                 key={product.id}
