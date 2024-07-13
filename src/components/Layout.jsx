@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import AlertDialogDemo from "./Login";
@@ -15,7 +16,9 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </header>
-      <main className="flex-grow px-36">{children}</main>
+      <main className="flex-grow px-36">
+        <Outlet />
+      </main>
       <footer className="flex w-full flex-col bg-black text-white">
         <div className="flex flex-row justify-between border-b border-zinc-600 px-36 py-20">
           <div className="flex flex-col gap-6">
