@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import AlertDialogDemo from "./Login";
@@ -7,9 +7,13 @@ const Layout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <header className="flex w-full flex-row items-end gap-12 border-b border-zinc-300 px-36 py-8 text-black">
-        <h2 className="text-2xl font-bold">Exclusive</h2>
+        <Link to="/" className="text-2xl font-bold">
+          Exclusive
+        </Link>
         <div className="text-md flex w-full flex-row justify-between font-medium">
-          <h3 className="underline">Home</h3>
+          <Link to="/" className="underline">
+            Home
+          </Link>
           <div className="flex flex-row gap-12">
             <Login />
             <CreateAccount />
