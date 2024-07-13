@@ -1,0 +1,228 @@
+import React, { useState, useEffect } from "react";
+import CategoryFilter from "./CategoryFilter";
+import ProductCard from "./ProductCard";
+
+const Menu = () => {
+    const [eletronics, setEletronic] = useState([]);
+    const [jewelery, setJewel] = useState([]);
+    const [mensClothing, setMenClothing] = useState([]);
+    const [womensClothing, setWomenClothing] = useState([]);
+    const [currentCategory, setCurrentCategory] = useState("todos");
+    
+    const fetchEletronics = async () => {
+        try {
+          const response = await fetch('https://fakestoreapi.com/products/category/electronics');
+          if (!response.ok) {
+            throw new Error('Falha ao carregar os dados');
+          }
+          const data = await response.json();
+          setEletronic(data);
+        } catch (error) {
+          console.error('Erro ao buscar produtos:', error);
+        }
+      };
+
+     
+
+      const fetchJewelery = async () => {
+        try {
+          const response = await fetch('https://fakestoreapi.com/products/category/jewelery');
+          if (!response.ok) {
+            throw new Error('Falha ao carregar os dados');
+          }
+          const data = await response.json();
+          setJewel(data);
+        } catch (error) {
+          console.error('Erro ao buscar produtos:', error);
+        }
+      };
+
+      const fetchMensClothing = async () => {
+        try {
+          const response = await fetch(`https://fakestoreapi.com/products/category/men's%20clothing`);
+          if (!response.ok) {
+            throw new Error('Falha ao carregar os dados');
+          }
+          const data = await response.json();
+          setMenClothing(data);
+        } catch (error) {
+          console.error('Erro ao buscar produtos:', error);
+        }
+      };
+
+      const fetchWomensClothing = async () => {
+        try {
+          const response = await fetch(`https://fakestoreapi.com/products/category/women's%20clothing`);
+          if (!response.ok) {
+            throw new Error('Falha ao carregar os dados');
+          }
+          const data = await response.json();
+          setWomenClothing(data);
+        } catch (error) {
+          console.error('Erro ao buscar produtos:', error);
+        }
+      };
+
+      useEffect(() => {
+        fetchEletronics();
+        fetchJewelery();
+        fetchMensClothing();
+        fetchWomensClothing();
+      }, []);
+
+  const handleCategoryChange = (category) => {
+    setCurrentCategory(category);
+  };
+
+  return (
+    <div className="my-4">
+      <div className="flex items-center space-x-2">
+        <div className="w-4 h-8 bg-red-500 rounded"></div>
+        <span className="text-md font-semibold text-red-500">Categorias</span>
+      </div>
+      <div className="text-4xl my-3 font-semibold">Buscar por categoria</div>
+      <CategoryFilter onSelectCategory={handleCategoryChange} currentCategory={currentCategory} /> {/* Passa a função de mudança de categoria */}
+      {currentCategory === "todos" && (
+        <div>
+                    <div className="flex items-center space-x-2 mt-14">
+            <div className="w-4 h-8 bg-red-500 rounded"></div>
+            <span className="text-md font-semibold text-red-500">Hoje</span>
+        </div>
+        <div className="flex items-center space-x-2 mt-14">
+            <div className="w-4 h-8 bg-red-500 rounded"></div>
+            <span className="text-md font-semibold text-red-500">Nossos produtos</span>
+        </div>
+        <div className="text-4xl my-6 font-semibold">Eletrônicos</div>
+        <div className="grid grid-cols-6 gap-10">
+      {eletronics.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.title}
+          image={product.image}
+          price={product.price}
+          rating={product.rating.rate}
+          count={product.count}
+        />
+      ))}
+    </div>
+
+    <div className="text-4xl my-6 font-semibold">Jóias</div>
+        <div className="grid grid-cols-6 gap-10">
+      {jewelery.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.title}
+          image={product.image}
+          price={product.price}
+          rating={product.rating.rate}
+          count={product.count}
+        />
+      ))}
+    </div>
+
+    <div className="text-4xl my-6 font-semibold">Roupas Masculinas</div>
+        <div className="grid grid-cols-6 gap-10">
+      {mensClothing.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.title}
+          image={product.image}
+          price={product.price}
+          rating={product.rating.rate}
+          count={product.count}
+        />
+      ))}
+    </div>
+
+    <div className="text-4xl my-6 font-semibold">Roupas Femininas</div>
+        <div className="grid grid-cols-6 gap-10">
+      {womensClothing.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.title}
+          image={product.image}
+          price={product.price}
+          rating={product.rating.rate}
+          count={product.count}
+        />
+      ))}
+    </div>
+        </div>
+      )}
+      {currentCategory !== "todos" && (
+        <div>
+          {currentCategory === "electronics" && (
+            <div>
+              <div className="text-4xl my-6 font-semibold">Eletrônicos</div>
+              <div className="grid grid-cols-6 gap-10">
+                {eletronics.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    name={product.title}
+                    image={product.image}
+                    price={product.price}
+                    rating={product.rating.rate}
+                    count={product.count}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          {currentCategory === "jewelery" && (
+            <div>
+              <div className="text-4xl my-6 font-semibold">Jóias</div>
+              <div className="grid grid-cols-6 gap-10">
+                {jewelery.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    name={product.title}
+                    image={product.image}
+                    price={product.price}
+                    rating={product.rating.rate}
+                    count={product.count}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          {currentCategory === "men's clothing" && (
+            <div>
+              <div className="text-4xl my-6 font-semibold">Roupas Masculinas</div>
+              <div className="grid grid-cols-6 gap-10">
+                {mensClothing.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    name={product.title}
+                    image={product.image}
+                    price={product.price}
+                    rating={product.rating.rate}
+                    count={product.count}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          {currentCategory === "women's clothing" && (
+            <div>
+              <div className="text-4xl my-6 font-semibold">Roupas Femininas</div>
+              <div className="grid grid-cols-6 gap-10">
+                {womensClothing.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    name={product.title}
+                    image={product.image}
+                    price={product.price}
+                    rating={product.rating.rate}
+                    count={product.count}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Menu;
